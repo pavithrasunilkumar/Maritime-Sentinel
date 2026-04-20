@@ -1,93 +1,165 @@
-# Maritime Sentinel — AI Coastal Surveillance System
+# 🚢 Maritime Sentinel — AI Coastal Surveillance System  
 
-AI-Driven Satellite Image Intelligence for Coastal Surveillance  
-*College project · Indian Navy EEZ · Detection + AIS + Alerts*
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
+![Flask](https://img.shields.io/badge/Backend-Flask-black?logo=flask)
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/Build-Vite-646CFF?logo=vite)
+![OpenCV](https://img.shields.io/badge/Computer%20Vision-OpenCV-green?logo=opencv)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
-## Folder Structure
+## 🌊 Overview  
 
-```
+**Maritime Sentinel** is an AI-powered coastal surveillance system that processes satellite imagery to detect ships, match AIS signals, and identify potential maritime threats in real time.
+
+It simulates a **defense-grade intelligent monitoring system**, combining:
+- Computer Vision  
+- Spatial Intelligence  
+- Real-time Analytics Dashboard  
+
+---
+
+## ⚙️ Key Features  
+
+- 🛰️ Satellite Image Processing  
+- 🚢 Ship Detection using OpenCV  
+- 📡 AIS Signal Matching (Simulated)  
+- ⚠️ Multi-Level Threat Detection  
+- 📊 Live Dashboard (React + Vite)  
+- 🔁 Auto-refresh every 3 seconds  
+- 🎯 Restricted Zone Monitoring  
+
+---
+
+## 🧱 Tech Stack  
+
+| Layer | Technology |
+|------|-----------|
+| Frontend | React + Vite |
+| Backend | Flask |
+| AI/ML | OpenCV |
+| Language | Python, JavaScript |
+
+---
+
+## 📁 Project Structure  
 maritime-surveillance/
 ├── backend/
-│   ├── app.py            ← Flask API server
-│   ├── detection.py      ← Ship detection + AIS matching + alerts
-│   ├── requirements.txt
-│   └── images/
-│       ├── real/         ← Input satellite images (5 harbours)
-│       └── annotated/    ← Auto-generated output frames
+│ ├── app.py
+│ ├── detection.py
+│ ├── requirements.txt
+│ └── images/
+│ ├── real/
+│ └── annotated/
 └── frontend/
-    ├── src/
-│   │   ├── App.jsx       ← Main dashboard component
-│   │   └── App.css       ← Tactical dark UI design
-    ├── index.html
-    └── vite.config.js
-```
+├── src/
+│ ├── App.jsx
+│ └── App.css
+
 
 ---
 
-## Setup Instructions
+## 🚀 Setup Instructions  
 
-### 1 — Prerequisites
-```bash
-python 3.10+  (backend)
-node  18+     (frontend)
-```
+### 🔧 Prerequisites  
 
-### 2 — Backend
+- Python 3.10+  
+- Node.js 18+  
+
+---
+
+### ▶️ Backend Setup  
+
 ```bash
 cd backend
 pip install -r requirements.txt
 python app.py
-# → running on http://localhost:5050
-```
+├── index.html
+└── vite.config.js
 
-### 3 — Frontend (new terminal)
-```bash
-cd frontend
+**cd frontend
 npm install
-npm run dev
-# → open http://localhost:5173
-```
+npm run dev**
 
----
 
-## How It Works
+System Workflow
 
-| Component | Logic |
-|-----------|-------|
-| **Image source** | 5 real coastal JPEG images in `images/real/`, cycled every 3 s |
-| **Ship detection** | OpenCV colour-segmentation → contour filter (falls back from YOLO if weights absent) |
-| **AIS matching** | Spatial distance match against 5 fixed virtual AIS transponders |
-| **Classification** | Bounding-box area → Cargo / Patrol / Fishing |
-| **Alert logic** | No AIS → HIGH · Right-side restricted zone → CRITICAL · else NORMAL |
-| **Dashboard** | React (Vite) — live-refresh every 3 s, colour-coded detections |
+| Module           | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| Image Source     | 5 real harbor satellite images (cycled every 3 seconds) |
+| Detection Engine | OpenCV segmentation + contour filtering                 |
+| AIS Matching     | Distance-based matching with simulated AIS              |
+| Classification   | Based on bounding-box area                              |
+| Alert Logic      | Rule-based threat classification                        |
+| Dashboard        | Real-time visualization using React                     |
 
----
 
-## API
 
-`GET /process-image`  
-Returns JSON:
-```json
+📡 API
+GET /process-image
 {
-  "image":      "<base64 JPEG>",
-  "detections": [ { "id", "ship_type", "alert", "has_ais", "mmsi", "vessel_name", "confidence", "bbox" } ],
-  "stats":      { "total", "ais_matched", "suspicious", "critical", "normal" },
-  "location":   { "name", "coords", "zone" },
+  "image": "<base64 JPEG>",
+  "detections": [
+    {
+      "id": 1,
+      "ship_type": "Cargo",
+      "alert": "HIGH",
+      "has_ais": false,
+      "mmsi": null,
+      "vessel_name": null,
+      "confidence": 0.87,
+      "bbox": [x, y, w, h]
+    }
+  ],
+  "stats": {
+    "total": 5,
+    "ais_matched": 3,
+    "suspicious": 1,
+    "critical": 1,
+    "normal": 3
+  },
+  "location": {
+    "name": "Mumbai Harbor",
+    "coords": [19.0760, 72.8777],
+    "zone": "restricted"
+  },
   "image_file": "mumbai_harbor_1.jpg"
 }
-```
 
-`GET /health` — sanity check
+GET /health
 
----
+System health check endpoint
+🚨 Alert Levels
+| Color     | Meaning                              |
+| --------- | ------------------------------------ |
+| 🟢 Green  | Normal (AIS present)                 |
+| 🟠 Orange | Suspicious (No AIS detected)         |
+| 🔴 Red    | Critical (Restricted zone violation) |
 
-## Alert Colour Codes
+📊 Results
+✔️ Real-time vessel detection pipeline
+✔️ AIS-based anomaly identification
+✔️ Restricted zone violation detection
+✔️ Interactive surveillance dashboard
+✔️ Modular full-stack architecture
+📄 Documentation
 
-| Color  | Meaning |
-|--------|---------|
-| 🟢 Green  | NORMAL — AIS present, outside restricted zone |
-| 🟠 Orange | HIGH — No AIS signal detected |
-| 🔴 Red    | CRITICAL — Vessel in restricted zone |
+📌 The project includes:
+
+📘 Detailed Project Report
+📑 Research Paper
+
+Available inside the docs/ folder.
+
+🔮 Future Enhancements
+YOLOv8 integration for improved detection
+Real satellite data integration
+Live AIS API integration
+Cloud deployment (AWS / GCP)
+Deep learning-based vessel classification
+
+👩‍💻 Author
+Pavithra S
 
